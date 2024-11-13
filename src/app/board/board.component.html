@@ -1,0 +1,9 @@
+<ul style="list-style: none;">
+    <li *ngFor="let row of sudoku.board">
+        <mat-grid-list cols="9" rowHeight="1:1">
+            <mat-grid-tile *ngFor="let cell of row">
+                {{cell}}
+            </mat-grid-tile>
+        </mat-grid-list>
+    </li>
+</ul>

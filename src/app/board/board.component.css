@@ -1,0 +1,12 @@
+li {
+    height:20%;
+}
+
+ul {
+    list-style: none;
+    width:30%
+}
+
+mat-grid-tile {
+    background: lightblue;
+  }
