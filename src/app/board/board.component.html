@@ -1,5 +1,5 @@
-<ul style="list-style: none;">
-    <li *ngFor="let row of sudoku.board">
+<ul style="list-style: none;" *ngIf="sudokuBoard.length > 0; else noSudoku">
+    <li *ngFor="let row of sudokuBoard">
         <mat-grid-list cols="9" rowHeight="1:1">
             <mat-grid-tile *ngFor="let cell of row">
                 {{cell}}
@@ -7,3 +7,10 @@
         </mat-grid-list>
     </li>
 </ul>
+
+<ng-template #noSudoku>
+    <div class="no-board">No game to load</div>
+</ng-template>
+
+<ng-template #noValue> 
+</ng-template>

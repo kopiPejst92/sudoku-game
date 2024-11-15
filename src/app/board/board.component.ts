@@ -1,18 +1,28 @@
-import { Component } from '@angular/core';
-import { Sudoku } from './models/sudoku';
+import { Component, OnInit } from '@angular/core';
+import { BoardService } from './board.service';
 
-// const SIZES=[9,30]
+const SIZES = [9, 30]
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent {
-  gboard: number[][] = [[1, 4, 0], [5, 0, 8, 7, 6, 5]];
+export class BoardComponent implements OnInit {
+  sudokuBoard: number[][] = [];
 
-  sudoku: Sudoku = {
-    size: 9,
-    board: this.gboard
+
+  constructor(private boardService: BoardService) {
+  }
+
+  ngOnInit(): void {
+    while (this.sudokuBoard.length == 0 || this.sudokuBoard == undefined) {
+      this.sudokuBoard = this.boardService.initializeBoard()
+    }
+    this.startGame()
+  }
+
+  startGame() {
+    this.boardService.generate();
   }
 }

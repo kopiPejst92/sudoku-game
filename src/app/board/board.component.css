@@ -10,3 +10,8 @@ ul {
 mat-grid-tile {
     background: lightblue;
   }
+
+  .no-board{
+    position:relative;
+    align-text:center
+  }
