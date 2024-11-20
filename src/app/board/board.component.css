@@ -2,16 +2,41 @@ li {
     height:20%;
 }
 
+
 ul {
     list-style: none;
     width:30%
 }
 
 mat-grid-tile {
-    background: lightblue;
+    background: lightblue; 
+    border: 1px solid white;
+  }
+
+  li:nth-child(3), li:nth-child(6){
+    margin-bottom:3px
+  }
+
+  li:nth-child(3) .sudoku-col{
+    border-bottom: 5px solid white;
+  }
+
+  
+  li:nth-child(3), li:nth-child(6){
+    margin-bottom:3px
+  }
+
+  mat-grid-list mat-grid-tile:nth-child(3), mat-grid-list mat-grid-tile:nth-child(6){
+    border-end: 10px solid red;
+    margin-end:2px
+  }
+
+  mat-grid-list mat-grid-tile:nth-child(4), mat-grid-list mat-grid-tile:nth-child(7){
+    margin-left:2px
   }
 
   .no-board{
     position:relative;
     align-text:center
   }
+
