@@ -1,5 +1,10 @@
-.mainav {
-   padding: 30px;
-   
-   
-}
+.sidenav {
+   height: 100%;
+   width: 40%;
+   position: fixed;
+   z-index: 1;
+   top: 0;
+   left: 0;
+   overflow-x: hidden;
+   padding: 30px
+ }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BoardService } from './board.service';
 
 const SIZES = [9, 30]
+let mN: [number, number]
 
 @Component({
   selector: 'app-board',
@@ -10,7 +11,8 @@ const SIZES = [9, 30]
 })
 export class BoardComponent implements OnInit {
   sudokuBoard: number[][] = [];
-
+  selCell: number[] = []
+  selDig: number=0
 
   constructor(private boardService: BoardService) {
   }
@@ -23,6 +25,15 @@ export class BoardComponent implements OnInit {
   }
 
   startGame() {
-    this.boardService.generate();
+    this.boardService.generateNaive();
   }
+
+  selectValue(value: number) {
+    this.selDig=value
+    if(!Array.isArray(this.selCell)){
+      this.boardService.fillValue(this.selDig, this.selCell)
+    }
+  }
+
+
 }

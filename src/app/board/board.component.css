@@ -1,38 +1,18 @@
-li {
-    height:20%;
-}
-
-
 ul {
     list-style: none;
-    width:30%
 }
 
 mat-grid-tile {
     background: lightblue; 
     border: 1px solid white;
-  }
+    }
 
   li:nth-child(3), li:nth-child(6){
     margin-bottom:3px
-  }
-
-  li:nth-child(3) .sudoku-col{
-    border-bottom: 5px solid white;
-  }
-
-  
-  li:nth-child(3), li:nth-child(6){
-    margin-bottom:3px
-  }
-
-  mat-grid-list mat-grid-tile:nth-child(3), mat-grid-list mat-grid-tile:nth-child(6){
-    border-end: 10px solid red;
-    margin-end:2px
   }
 
   mat-grid-list mat-grid-tile:nth-child(4), mat-grid-list mat-grid-tile:nth-child(7){
-    margin-left:2px
+    margin-left:3px
   }
 
   .no-board{
@@ -40,3 +20,26 @@ mat-grid-tile {
     align-text:center
   }
 
+/* Style the footer */
+.footer {
+  background-color: #f1f1f1;
+  padding: 20px;
+  border-radius:5px
+}
+
+.digits{
+  height:40px;
+  width:40px;
+  padding:10px;
+  font-family: Roboto;
+  font-size:20px;
+  margin-right: 5px;
+  background-color:#F96E2A;
+  border:none;
+  color:white;
+  border-radius:5px
+}
+
+button:focus{
+  background-color:#FA4032;
+}
