@@ -8,12 +8,19 @@ let mN: [number, number]
   providedIn: 'root'
 })
 export class BoardService {
-
   private sudoku: Sudoku;
-
+  
   constructor() {
     let savedSudoku = localStorage.getItem("sudoku");
     this.sudoku = savedSudoku ? JSON.parse(savedSudoku) : [];
+  }
+
+  fillValue(value: number, cell: number[] ) {
+    let row: number=cell[0]
+    let col: number=cell[1]
+    if(this.sudoku.board[row][col]!=null && this.checkValue(row, col, value)){
+      this.sudoku.board[row][col]= value
+    }
   }
 
   initializeBoard(): number[][] {
@@ -38,60 +45,90 @@ export class BoardService {
     return this.sudoku.board;
   }
 
-  generate() {
+  generateRandom() {
     let times = randomNumberRange(17, 40);
     console.log("Times: " + times);
     for (let t = 1; t < times; t++) {
       let mN = randomColAndRow();
       // console.log("Picked cell: [" + mN[0] + "," + mN[1] + "]");
       let value = randomNumberRange(1, 9);
-
       // console.log("Random value to fill: " + value);
       this.sudoku.board[mN[0]][mN[1]] = value
     }
   }
 
-  checkValue(row:number, col:number, value:number){
-    if(value>=1 && value <= 9){
-      return this.checkRow(row, value) && this.checkCol(col, value) && this.checkQuadrant(row,col, value)
-    }else{
-
-      return false
+  generateNaive() {
+    for (let m = 0; m < 9; m++) {
+      console.log("Filling row: " + (m + 1))
+      for (let n = 0; n < 9; n++) {
+        let gtime: number = 1
+        while (gtime < 9) {
+          for (let v = 1; v <= 9; v++) {
+            if (this.sudoku.board[m][n] === 0 && this.checkValue(m, n, v)) {
+              console.log("Filling cell: [" + m + "," + n + "] with value: " + v)
+              this.sudoku.board[m][n] = v;
+              continue;
+            }
+            gtime++;
+          }
+        }
+      }
     }
   }
 
-  checkQuadrant(row: number, col: number, value: number): boolean {
-    let quadrant: number[] = []
-    let qNum: number = getQuadrantNumber(row, col)
+  checkValue(row: number, col: number, value: number): boolean {
+    if (value >= 1 && value <= 9)
+      return this.checkRow(row, value) && this.checkCol(col, value) && this.checkQuadrant(row, col, value)
+    else return false
+  }
 
-    return false
+  checkQuadrant(row: number, col: number, value: number): boolean {
+    let quadrant: number[][] = this.getWholeQuadrant(row, col);
+    for (let row of quadrant)
+      /** we need to chceck all cells aside from the assigned */
+      if (row.includes(value))
+        return false;
+    return true;
   }
 
   checkCol(col: number, value: number): boolean {
     let columnToCheck = this.getWholeColumn(col)
-    return columnToCheck.includes(value)
+    return !columnToCheck.includes(value)
   }
 
   checkRow(row: number, value: number): boolean {
     let rowToCheck: number[] = this.sudoku.board[row]
-    return rowToCheck.includes(value)
+    return !rowToCheck.includes(value)
   }
 
-  getWholeColumn(col:number): number[] {
+  getWholeColumn(col: number): number[] {
     let column: number[] = []
-    for(let row of this.sudoku.board){
+    for (let row of this.sudoku.board) {
       let value: number = row[col]
       column.push(value)
     }
     return column
   }
 
-  getWholeQuadrant(qNum: number){
-    switch(qNum){
-      case 1:
-        
+  getWholeQuadrant(x: number, y: number): number[][] {
+    let quadrant: number[][] = [];
+    if (inRange(0, 8, x) && inRange(0, 8, y)) {
+      let startRow: number = x - x % 3;
+      let startCol: number = y - y % 3;
+      for (let m = startRow; m < startRow + 3; m++) {
+        let qrow: number[] = []
+        for (let n = startCol; n < startCol + 3; n++) {
+          let value = this.sudoku.board[m][n]
+          qrow.push(value)
+        }
+        quadrant.push(qrow)
+      }
+      console.log(quadrant)
+      return quadrant;
     }
+    else return [];
   }
+
 }
 
 function randomColAndRow() {
@@ -99,36 +136,15 @@ function randomColAndRow() {
   var randomRow = randomNumberRange(0, 8);
   mN = [randomRow, randomCol];
   return mN
-
-}
-
-function getQuadrantNumber(row: number, col: number) {
-  if (row >= 0 && row < 3)
-    if (col > 0 && col < 3)
-      return 1;
-    else if (col >= 3 && col < 6)
-      return 2;
-    else if (col >= 6 && col < 9)
-      return 3;
-    else if (row >= 3 && row < 6)
-      if (col > 0 && col < 3)
-        return 4;
-      else if (col >= 3 && col < 6)
-        return 5;
-      else if (col >= 6 && col < 9)
-        return 6;
-      else if (row >= 6 && row < 9)
-        if (col > 0 && col < 3)
-          return 7;
-        else if (col >= 3 && col < 6)
-          return 8;
-        else if (col >= 6 && col < 9)
-          return 9;
-        else
-          throw new Error("Number of row is not valid")
-          return 0;
 }
 
 function randomNumberRange(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+function inRange(min: number, max: number, value: number): boolean {
+  if (value >= min && value <= max)
+    return true
+  else return false
+}
+
