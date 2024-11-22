@@ -43,3 +43,8 @@ mat-grid-tile {
 button:focus{
   background-color:#FA4032;
 }
+
+.mat-grid-tile-content:focus{
+  background-color: #4335A7;
+  font-color: white;
+}

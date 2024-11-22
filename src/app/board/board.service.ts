@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Sudoku } from '../models/sudoku';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 const posSizes = [9, 30]
 let mN: [number, number]
@@ -9,25 +11,42 @@ let mN: [number, number]
 })
 export class BoardService {
   private sudoku: Sudoku;
-  
-  constructor() {
+
+  constructor(private snackbar: MatSnackBar) {
     let savedSudoku = localStorage.getItem("sudoku");
     this.sudoku = savedSudoku ? JSON.parse(savedSudoku) : [];
   }
 
-  fillValue(value: number, cell: number[] ) {
-    let row: number=cell[0]
-    let col: number=cell[1]
-    if(this.sudoku.board[row][col]!=null && this.checkValue(row, col, value)){
-      this.sudoku.board[row][col]= value
+  fillValue(value: number, cell: number[]) {
+    let row: number = cell[0]
+    let col: number = cell[1]
+    console.log("Filling cell: [" + cell + "]")
+    if(this.checkIfGenerated(row,col)){
+      this.snackbar.open("Cell is already filled")
     }
+    else if (this.sudoku.board[row][col] != null && this.checkValue(row, col, value)) {
+      this.sudoku.board[row][col] = value
+    }
+    else{
+      this.snackbar.open("Value is invalid")
+    }
+  }
+
+  checkIfGenerated(m: number, n: number) {
+    for(let cell of this.sudoku.genCell){
+      if(cell[0]===m && cell[1]===n){
+        return true;
+      }
+    }
+    return false
   }
 
   initializeBoard(): number[][] {
     let newBoard: number[][] = []
     this.sudoku = {
       size: posSizes[0],
-      board: []
+      board: [],
+      genCell: []
     }
 
     for (let m = 0; m < this.sudoku.size; m++) {
@@ -58,15 +77,16 @@ export class BoardService {
   }
 
   generateNaive() {
-    for (let m = 0; m < 9; m++) {
-      console.log("Filling row: " + (m + 1))
+      for (let m = 0; m < 9; m++) {
+      // console.log("Filling row: " + (m + 1))
       for (let n = 0; n < 9; n++) {
         let gtime: number = 1
         while (gtime < 9) {
           for (let v = 1; v <= 9; v++) {
             if (this.sudoku.board[m][n] === 0 && this.checkValue(m, n, v)) {
-              console.log("Filling cell: [" + m + "," + n + "] with value: " + v)
+              // console.log("Filling cell: [" + m + "," + n + "] with value: " + v)
               this.sudoku.board[m][n] = v;
+              this.sudoku.genCell.push([m,n])
               continue;
             }
             gtime++;

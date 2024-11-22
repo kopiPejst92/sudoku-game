@@ -12,7 +12,7 @@ let mN: [number, number]
 export class BoardComponent implements OnInit {
   sudokuBoard: number[][] = [];
   selCell: number[] = []
-  selDig: number=0
+  selDig: number = 0
 
   constructor(private boardService: BoardService) {
   }
@@ -24,16 +24,23 @@ export class BoardComponent implements OnInit {
     this.startGame()
   }
 
-  startGame() {
+  startGame(): void {
     this.boardService.generateNaive();
   }
 
-  selectValue(value: number) {
-    this.selDig=value
-    if(!Array.isArray(this.selCell)){
+  selectValue(value: number): void {
+    this.selDig = value
+    if (!Array.isArray(this.selCell)) {
       this.boardService.fillValue(this.selDig, this.selCell)
+      this.selCell=[]
     }
   }
 
+  selectCell(m: number, n: number): void {
+    this.selCell = [m, n]
+    if (this.selDig != null && this.selDig != 0) {
+      this.boardService.fillValue(this.selDig, this.selCell)
+    }
+  }
 
 }
