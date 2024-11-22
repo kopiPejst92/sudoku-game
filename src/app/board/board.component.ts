@@ -10,7 +10,9 @@ let mN: [number, number]
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
+
   sudokuBoard: number[][] = [];
+  originBoard: number[][] = [];
   selCell: number[] = []
   selDig: number = 0
 
@@ -26,19 +28,28 @@ export class BoardComponent implements OnInit {
 
   startGame(): void {
     this.boardService.generateNaive();
+    this.originBoard = this.sudokuBoard
+  }
+
+  clearBoard() {
+    this.sudokuBoard = this.boardService.initializeBoard()
+  }
+
+  refreshBoard() {
+    this.sudokuBoard = this.originBoard
   }
 
   selectValue(value: number): void {
     this.selDig = value
-    if (!Array.isArray(this.selCell)) {
+    if (this.selCell.length != 0) {
       this.boardService.fillValue(this.selDig, this.selCell)
-      this.selCell=[]
+      this.selCell = []
     }
   }
 
   selectCell(m: number, n: number): void {
     this.selCell = [m, n]
-    if (this.selDig != null && this.selDig != 0) {
+    if (this.selDig != 0) {
       this.boardService.fillValue(this.selDig, this.selCell)
     }
   }

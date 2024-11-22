@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Sudoku } from '../models/sudoku';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Sudoku } from '../models/sudoku';
 
 
 const posSizes = [9, 30]
@@ -21,20 +21,20 @@ export class BoardService {
     let row: number = cell[0]
     let col: number = cell[1]
     console.log("Filling cell: [" + cell + "]")
-    if(this.checkIfGenerated(row,col)){
+    if (this.checkIfGenerated(row, col)) {
       this.snackbar.open("Cell is already filled")
     }
     else if (this.sudoku.board[row][col] != null && this.checkValue(row, col, value)) {
       this.sudoku.board[row][col] = value
     }
-    else{
+    else {
       this.snackbar.open("Value is invalid")
     }
   }
 
   checkIfGenerated(m: number, n: number) {
-    for(let cell of this.sudoku.genCell){
-      if(cell[0]===m && cell[1]===n){
+    for (let cell of this.sudoku.genCell) {
+      if (cell[0] === m && cell[1] === n) {
         return true;
       }
     }
@@ -77,7 +77,7 @@ export class BoardService {
   }
 
   generateNaive() {
-      for (let m = 0; m < 9; m++) {
+    for (let m = 0; m < 9; m++) {
       // console.log("Filling row: " + (m + 1))
       for (let n = 0; n < 9; n++) {
         let gtime: number = 1
@@ -86,7 +86,7 @@ export class BoardService {
             if (this.sudoku.board[m][n] === 0 && this.checkValue(m, n, v)) {
               // console.log("Filling cell: [" + m + "," + n + "] with value: " + v)
               this.sudoku.board[m][n] = v;
-              this.sudoku.genCell.push([m,n])
+              this.sudoku.genCell.push([m, n])
               continue;
             }
             gtime++;

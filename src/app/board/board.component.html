@@ -1,14 +1,19 @@
 <ul *ngIf="sudokuBoard.length > 0; else noSudoku">
     <li *ngFor="let row of sudokuBoard; index as m">
         <mat-grid-list class="sudoku-row" cols="9">
-            <mat-grid-tile (click)="selectCell(m,n)" class="sudoku-col" *ngFor="let cell of row; index as n">
+            <mat-grid-tile tabindex="0" (click)="selectCell(m,n)" class="sudoku-col"
+                *ngFor="let cell of row; index as n">
                 {{cell}}
             </mat-grid-tile>
         </mat-grid-list>
     </li>
 </ul>
 <div class="footer">
-    <button (click)="selectValue(i)" class="digits" *ngFor="let i of [1,2,3,4,5,6,7,8,9]">{{i}}</button>
+    <div class="button-row">
+        <button class="digitsBtn" (click)="selectValue(i)" *ngFor="let i of [1,2,3,4,5,6,7,8,9]">{{i}}</button>
+        <button class="clearBtn" (click)="clearBoard()">Clear</button>
+        <button class="refreshBtn" (click)="refreshBoard()"><mat-icon fontIcon="refresh"></mat-icon></button>
+    </div>
 </div>
 <ng-template #noSudoku>
     <div class="no-board">No game to load</div>

@@ -5,6 +5,8 @@ ul {
 mat-grid-tile {
     background: lightblue; 
     border: 1px solid white;
+    border-radius:8px;
+    font-size:20px
     }
 
   li:nth-child(3), li:nth-child(6){
@@ -13,6 +15,10 @@ mat-grid-tile {
 
   mat-grid-list mat-grid-tile:nth-child(4), mat-grid-list mat-grid-tile:nth-child(7){
     margin-left:3px
+  }
+
+  mat-grid-list mat-grid-tile:nth-child(5), mat-grid-list mat-grid-tile:nth-child(8){
+    margin-left:1px
   }
 
   .no-board{
@@ -24,27 +30,48 @@ mat-grid-tile {
 .footer {
   background-color: #f1f1f1;
   padding: 20px;
-  border-radius:5px
+  border-radius:5px;
+  margin-left:40px;
 }
 
-.digits{
-  height:40px;
-  width:40px;
-  padding:10px;
-  font-family: Roboto;
-  font-size:20px;
-  margin-right: 5px;
-  background-color:#F96E2A;
+.button-row{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.button-row button{
+  min-width: 50px;
+  height:50px;
   border:none;
+  border-radius:5px;
+  font-family: Roboto;
   color:white;
-  border-radius:5px
 }
 
-button:focus{
+.digitsBtn{
+  background-color:#F96E2A;
+  font-size:18px;
+}
+
+.clearBtn{
+  font-size:16px;
+  background-color:#FA4032
+}
+
+.refreshBtn{
+  background-color: #4335A7;
+} 
+
+button.digitsBtn:active{
   background-color:#FA4032;
 }
 
-.mat-grid-tile-content:focus{
+.mat-grid-tile:focus{
   background-color: #4335A7;
-  font-color: white;
+  color: white;
+}
+
+mat-icon{
+  color:white;
 }
