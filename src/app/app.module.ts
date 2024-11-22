@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -10,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
+import { CSVService } from './helpers/csv.service';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,10 @@ import { BoardComponent } from './board/board.component';
     MatSidenavModule,
     MatSnackBarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CSVService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

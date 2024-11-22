@@ -13,6 +13,7 @@
         <button class="digitsBtn" (click)="selectValue(i)" *ngFor="let i of [1,2,3,4,5,6,7,8,9]">{{i}}</button>
         <button class="clearBtn" (click)="clearBoard()">Clear</button>
         <button class="refreshBtn" (click)="refreshBoard()"><mat-icon fontIcon="refresh"></mat-icon></button>
+        <button (click)="print()"></button>
     </div>
 </div>
 <ng-template #noSudoku>
