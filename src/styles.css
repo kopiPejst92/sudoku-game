@@ -2,3 +2,10 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face{
+    font-family:'octopus-game-font';
+    src: url('assets/fonts/OctopusGame-RpWV3.ttf')
+}
+
+

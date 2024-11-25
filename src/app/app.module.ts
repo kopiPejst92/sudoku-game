@@ -11,7 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { BoardComponent } from './board/board.component';
-import { CSVService } from './helpers/csv.service';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { CSVService } from './helpers/csv.service';
     MatIconModule,
     HttpClientModule
   ],
-  providers: [CSVService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

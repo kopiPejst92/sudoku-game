@@ -1,10 +1,26 @@
 .sidenav {
    height: 100%;
-   width: 40%;
+   width: 20%;
    position: fixed;
    z-index: 1;
    top: 0;
    left: 0;
-   overflow-x: hidden;
-   padding: 30px
+   padding: 20px;
+   word-wrap:break-word
  }
+
+ .content {
+  margin-left: 20%;
+  padding: 100px;
+}
+
+.game-title{
+  font-size:40px;
+  font-family:octopus-game-font;
+  margin-top:40px;
+}
+
+.csv{
+  width:auto;
+  padding-top:40px;
+}

@@ -1,3 +1,10 @@
+.game-container{
+  position:relative;
+  width:80%;
+  align-self:center;
+  align-text:center;
+  }
+
 ul {
     list-style: none;
 }
@@ -6,7 +13,7 @@ mat-grid-tile {
     background: lightblue; 
     border: 1px solid white;
     border-radius:8px;
-    font-size:20px
+    font-size:18px
     }
 
   li:nth-child(3), li:nth-child(6){
@@ -38,11 +45,12 @@ mat-grid-tile {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  max-width:700px;
 }
 
 .button-row button{
-  min-width: 50px;
-  height:50px;
+  min-width: 40px;
+  height:40px;
   border:none;
   border-radius:5px;
   font-family: Roboto;
@@ -50,13 +58,13 @@ mat-grid-tile {
 }
 
 .digitsBtn{
-  background-color:#F96E2A;
+  background-color:black;
   font-size:18px;
 }
 
 .clearBtn{
   font-size:16px;
-  background-color:#FA4032
+  background-color:black
 }
 
 .refreshBtn{

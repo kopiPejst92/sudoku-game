@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CSVService } from '../helpers/csv.service';
 import { BoardService } from './board.service';
 
 const SIZES = [9, 30]
@@ -17,7 +16,7 @@ export class BoardComponent implements OnInit {
   selCell: number[] = []
   selDig: number = 0
 
-  constructor(private boardService: BoardService, private csv: CSVService) {
+  constructor(private boardService: BoardService) {
   }
 
   ngOnInit(): void {
@@ -25,10 +24,6 @@ export class BoardComponent implements OnInit {
       this.sudokuBoard = this.boardService.initializeBoard()
     }
     this.startGame()
-  }
-
-  print(): void {
-    this.csv.importDataFromCSV()
   }
 
   startGame(): void {
