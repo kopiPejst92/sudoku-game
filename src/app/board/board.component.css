@@ -60,11 +60,14 @@ mat-grid-tile {
 .digitsBtn{
   background-color:black;
   font-size:18px;
+  font-weight:900
 }
 
 .clearBtn{
   font-size:16px;
-  background-color:black
+  background-color:black;
+  padding-right:10px;
+  padding-left:10px;
 }
 
 .refreshBtn{
@@ -82,4 +85,5 @@ button.digitsBtn:active{
 
 mat-icon{
   color:white;
+
 }

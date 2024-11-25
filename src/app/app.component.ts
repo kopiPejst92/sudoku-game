@@ -10,7 +10,9 @@ export class AppComponent implements OnInit {
   private path: string = "/assets/game_examples/sudoku_examples.csv"
   csvContent: string = ""
   title = 'Granny\'s game!';
-  csv: string = ""
+  board: string[] = []
+  // board: string = ""
+  solution: string[] = []
 
 
   constructor(private httpClient: HttpClient) {
@@ -33,9 +35,11 @@ export class AppComponent implements OnInit {
       }
     });
 
-    }
-    getSudokuFromCSV(data: string): void {
-      this.csv=data.split(('\n'))[1]
+  }
+  getSudokuFromCSV(data: string): void {
+    let sudokuList: string[] = data.split("\n").splice(1)
+    this.board = sudokuList[0].split(",")[0].split("", 81)
+    this.solution = sudokuList[0].split(",")[1].split("", 81)  
   }
 
 }
