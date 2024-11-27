@@ -6,8 +6,7 @@
    top: 0;
    left: 0;
    padding: 20px;
-   word-wrap:break-word
- }
+   }
 
  .content {
   margin-left: 20%;
@@ -24,4 +23,8 @@
 .csv{
   width:auto;
   padding-top:40px;
+}
+
+.solver{
+  margin-top:20px
 }

@@ -33,10 +33,15 @@ export class BoardService {
   }
 
   checkIfGenerated(m: number, n: number) {
-    for (let cell of this.sudoku.genCell) {
-      if (cell[0] === m && cell[1] === n) {
+    if(this.sudoku.board[m][n]===0){
+    for (let gcell of this.sudoku.genCell) {
+      if (gcell[0] === m && gcell[1] === n) {
+        console.log("m: " + m + "n: " + n)
+        console.log("m: " + gcell[0] + " n:" + gcell[1])
         return true;
       }
+    }
+    return false
     }
     return false
   }
@@ -83,7 +88,7 @@ export class BoardService {
         let gtime: number = 1
         while (gtime < 9) {
           for (let v = 1; v <= 9; v++) {
-            if (this.sudoku.board[m][n] === 0 && this.checkValue(m, n, v)) {
+            if (this.sudoku.board[m][n] === 0 && !this.checkValue(m, n, v)) {
               // console.log("Filling cell: [" + m + "," + n + "] with value: " + v)
               this.sudoku.board[m][n] = v;
               this.sudoku.genCell.push([m, n])
@@ -96,16 +101,15 @@ export class BoardService {
     }
   }
 
-  checkValue(row: number, col: number, value: number): boolean {
-    if (value >= 1 && value <= 9)
-      return this.checkRow(row, value) && this.checkCol(col, value) && this.checkQuadrant(row, col, value)
+    checkValue(row: number, col: number, value: number): boolean {
+    if (value >= 1 && value <= 9){
+      return this.checkRow(row, value) && this.checkCol(col, value) && this.checkQuadrant(row, col, value)}
     else return false
   }
 
   checkQuadrant(row: number, col: number, value: number): boolean {
     let quadrant: number[][] = this.getWholeQuadrant(row, col);
     for (let row of quadrant)
-      /** we need to chceck all cells aside from the assigned */
       if (row.includes(value))
         return false;
     return true;
