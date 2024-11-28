@@ -51,6 +51,7 @@ export class BoardComponent implements OnInit {
     this.selDig = value
     if (this.selCell.length != 0) {
       this.boardService.fillValue(this.selDig, this.selCell)
+      this.sudokuBoard=this.boardService.getBoard()
       this.selCell = []
     }
   }
@@ -80,12 +81,13 @@ export class BoardComponent implements OnInit {
     let sudokuList: string[] = data.split("\n").splice(1)
     sudokuList = sudokuList[0].split(",")[0].split("", 81)
     this.sudokuBoard = Array.from({ length: 9 }, (_, rowIndex) => sudokuList.slice(rowIndex * 9, (rowIndex + 1) * 9).map(str => Number(str)));
+    this.boardService.uploadBoard(this.sudokuBoard)
     this.originBoard = this.sudokuBoard
     console.log(this.sudokuBoard)
     // sudokuList[0].split(",")[1].split("", 81)  
   }
 
   solveSudoku(): void{
-    console.log("Solved")
+    
   }
 }

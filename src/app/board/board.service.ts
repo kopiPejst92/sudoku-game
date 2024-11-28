@@ -5,6 +5,7 @@ import { Sudoku } from '../models/sudoku';
 
 const posSizes = [9, 30]
 let mN: [number, number]
+const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 @Injectable({
   providedIn: 'root'
@@ -33,15 +34,15 @@ export class BoardService {
   }
 
   checkIfGenerated(m: number, n: number) {
-    if(this.sudoku.board[m][n]===0){
-    for (let gcell of this.sudoku.genCell) {
-      if (gcell[0] === m && gcell[1] === n) {
-        console.log("m: " + m + "n: " + n)
-        console.log("m: " + gcell[0] + " n:" + gcell[1])
-        return true;
+    if (this.sudoku.board[m][n] === 0) {
+      for (let gcell of this.sudoku.genCell) {
+        if (gcell[0] === m && gcell[1] === n) {
+          console.log("m: " + m + "n: " + n)
+          console.log("m: " + gcell[0] + " n:" + gcell[1])
+          return true;
+        }
       }
-    }
-    return false
+      return false
     }
     return false
   }
@@ -69,6 +70,10 @@ export class BoardService {
     return this.sudoku.board;
   }
 
+  uploadBoard(board: number[][]) {
+    this.sudoku.board = board
+  }
+
   generateRandom() {
     let times = randomNumberRange(17, 40);
     console.log("Times: " + times);
@@ -85,7 +90,7 @@ export class BoardService {
     for (let m = 0; m < 9; m++) {
       // console.log("Filling row: " + (m + 1))
       for (let n = 0; n < 9; n++) {
-        let gtime: number = 1
+        let gtime: number = DIGITS[0]
         while (gtime < 9) {
           for (let v = 1; v <= 9; v++) {
             if (this.sudoku.board[m][n] === 0 && !this.checkValue(m, n, v)) {
@@ -101,9 +106,54 @@ export class BoardService {
     }
   }
 
-    checkValue(row: number, col: number, value: number): boolean {
-    if (value >= 1 && value <= 9){
-      return this.checkRow(row, value) && this.checkCol(col, value) && this.checkQuadrant(row, col, value)}
+  generateBoardBackTrack() {
+    let digGrid: number[] = DIGITS
+    let toSolve: boolean = true
+    let solved = true
+    let hasSol: boolean = true
+    let empCell:number[] = []
+    let lastCell:number[] = []
+    do{
+      empCell= this.findEmptyCell() 
+      //here we have searching for solution
+      {for(let v=0; v<digGrid.length; v++){
+        if(this.checkValue(empCell[0], empCell[1], v)){
+          this.fillValue(v, empCell)
+          lastCell=empCell
+          empCell=[]
+        }
+        else
+          continue
+      }
+      hasSol=false
+
+    }
+        
+    }
+    while(empCell.length==0 && hasSol)
+    //backtrack
+    
+  }
+
+  findEmptyCell(): number[]{
+    for(let m=0; m<9; m++)
+      for(let n=0; n<9;n++){
+        if(this.sudoku.board[m][n]===0){
+          return [m,n];
+        }
+      }
+      return []
+  }
+
+  backtrack(){
+    //retreat to cell which was previously filled remove value
+    //try the next value to the used one, cannot be greater than 9; if there is nonen left, retreat again and
+  }
+
+  checkValue(row: number, col: number, value: number): boolean {
+    if (value >= 1 && value <= 9) {
+      return this.checkRow(row, value) && this.checkCol(col, value) && this.checkQuadrant(row, col, value)
+    }
     else return false
   }
 

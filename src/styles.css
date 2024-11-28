@@ -20,7 +20,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @media only screen and (max-width: 800px) {
     .fontS {
         font-size:14px;
-        color:red
     }
 }
 
