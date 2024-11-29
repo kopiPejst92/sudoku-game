@@ -106,49 +106,51 @@ export class BoardService {
     }
   }
 
-  generateBoardBackTrack() {
+  generateBoardBackTrack(){
     let digGrid: number[] = DIGITS
-    let toSolve: boolean = true
-    let solved = true
     let hasSol: boolean = true
-    let empCell:number[] = []
-    let lastCell:number[] = []
-    do{
-      empCell= this.findEmptyCell() 
-      //here we have searching for solution
-      {for(let v=0; v<digGrid.length; v++){
-        if(this.checkValue(empCell[0], empCell[1], v)){
-          this.fillValue(v, empCell)
-          lastCell=empCell
-          empCell=[]
+    let empCell: number[] = []
+    let lastCell: number[] = []
+    let value=0
+    do {
+      empCell = this.findEmptyCell()
+      if (empCell.length == 2) {
+        //here we have searching for solution
+        for (let v = 0; v < digGrid.length; v++) {
+          value = digGrid[v]
+          if (this.checkValue(empCell[0], empCell[1], value)) {
+            this.sudoku.board[empCell[0]][empCell[1]] = value
+            lastCell = empCell
+            empCell = []
+            hasSol = true
+            break
+          }
+          else continue
         }
-        else
-          continue
+        if (empCell.length == 2 && value==9) hasSol = false;
       }
-      hasSol=false
-
     }
-        
+    while (hasSol)
+    if (hasSol == false && empCell.length != 0) {
+      this.backtrack(empCell)
     }
-    while(empCell.length==0 && hasSol)
-    //backtrack
-    
   }
 
-  findEmptyCell(): number[]{
-    for(let m=0; m<9; m++)
-      for(let n=0; n<9;n++){
-        if(this.sudoku.board[m][n]===0){
-          return [m,n];
+
+  backtrack(cell: number[]) {
+    console.log("We are backtracking")
+  }
+
+  findEmptyCell(): number[] {
+    for (let m = 0; m < 9; m++)
+      for (let n = 0; n < 9; n++) {
+        if (this.sudoku.board[m][n] === 0) {
+          return [m, n];
         }
       }
-      return []
+    return []
   }
 
-  backtrack(){
-    //retreat to cell which was previously filled remove value
-    //try the next value to the used one, cannot be greater than 9; if there is nonen left, retreat again and
-  }
 
   checkValue(row: number, col: number, value: number): boolean {
     if (value >= 1 && value <= 9) {

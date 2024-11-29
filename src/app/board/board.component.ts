@@ -88,6 +88,6 @@ export class BoardComponent implements OnInit {
   }
 
   solveSudoku(): void{
-    
+    this.boardService.generateBoardBackTrack()
   }
 }

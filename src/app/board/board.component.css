@@ -2,6 +2,7 @@
   position:relative;
   align-self:center;
   align-text:center;
+  width:70%
 }
 
 ul {
@@ -37,10 +38,6 @@ mat-grid-tile {
   padding: 20px;
   border-radius:5px;
   margin-left:40px;
-}
-
-div.mat-grid-tile{
-  width:10px
 }
 
 .button-row{

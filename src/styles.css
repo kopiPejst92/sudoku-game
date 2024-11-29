@@ -9,7 +9,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 .fontS{
-    font-size:18px;
+    font-size:20px;
 }
 
 @media only screen and (min-width: 800) and (max-width: 1200) {
