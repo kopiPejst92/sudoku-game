@@ -26,5 +26,13 @@
 }
 
 .solver{
-  margin-top:20px;
+  margin-top:40px;
+  padding:10px;
+  min-width: 180px;
+  font-size:16px;
+  height:40px;
+  border:none;
+  border-radius:5px;
+  color:white;
+  background:#4335A7
 }

@@ -106,12 +106,12 @@ export class BoardService {
     }
   }
 
-  generateBoardBackTrack(){
+  generateBoardBackTrack() {
     let digGrid: number[] = DIGITS
     let hasSol: boolean = true
     let empCell: number[] = []
     let lastCell: number[] = []
-    let value=0
+    let value = 0
     do {
       empCell = this.findEmptyCell()
       if (empCell.length == 2) {
@@ -119,6 +119,7 @@ export class BoardService {
         for (let v = 0; v < digGrid.length; v++) {
           value = digGrid[v]
           if (this.checkValue(empCell[0], empCell[1], value)) {
+            console.log("Filling cell: " + empCell + "with value " + value)
             this.sudoku.board[empCell[0]][empCell[1]] = value
             lastCell = empCell
             empCell = []
@@ -127,18 +128,20 @@ export class BoardService {
           }
           else continue
         }
-        if (empCell.length == 2 && value==9) hasSol = false;
+        if (empCell.length == 2 && value == 9) hasSol = false;
       }
     }
     while (hasSol)
     if (hasSol == false && empCell.length != 0) {
-      this.backtrack(empCell)
+      console.log("We are backtracking. Clearing cell: ", lastCell)
+      let lastUsed: number = this.sudoku.board[lastCell[0]][lastCell[1]]
+      this.sudoku.board[lastCell[0]][lastCell[1]] = 0
+      digGrid = digGrid.filter((ele, ind) => ele !== lastUsed);
+      // this.generateBoardBackTrack()
     }
-  }
-
-
-  backtrack(cell: number[]) {
-    console.log("We are backtracking")
+    else {
+      console.log("This sudoku does not have solution")
+    }
   }
 
   findEmptyCell(): number[] {

@@ -78,7 +78,7 @@ export class BoardComponent implements OnInit {
 
   }
   getSudokuFromCSV(data: string): void {
-    let sudokuList: string[] = data.split("\n").splice(1)
+    let sudokuList: string[] = data.split("\n").splice(6)
     sudokuList = sudokuList[0].split(",")[0].split("", 81)
     this.sudokuBoard = Array.from({ length: 9 }, (_, rowIndex) => sudokuList.slice(rowIndex * 9, (rowIndex + 1) * 9).map(str => Number(str)));
     this.boardService.uploadBoard(this.sudokuBoard)
