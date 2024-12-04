@@ -16,11 +16,8 @@
             <button class="refreshBtn" (click)="refreshBoard()"><mat-icon fontIcon="refresh"></mat-icon></button>
         </div>
     </div>
+    <div class="time">{{taken}}</div>
     <ng-template #noSudoku>
         <div class="no-board">No game to load</div>
-    </ng-template>
-
-    <ng-template #noValue>
-        No board to load
     </ng-template>
 </div>

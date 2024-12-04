@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { BoardComponent } from './board/board.component';
 import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { BoardComponent } from './board/board.component';
 import { BoardService } from './board/board.service';
 
 @Component({
@@ -8,16 +8,19 @@ import { BoardService } from './board/board.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
-
+export class AppComponent {
   title = 'Granny\'s game!';
 
-  constructor(private boardService: BoardService, private http:HttpClient){
-    
+  constructor(private boardService: BoardService, private http: HttpClient) {
+
   }
 
-  solveSudoku(){
+  solveSudoku() {
     new BoardComponent(this.boardService, this.http).solveSudoku()
+  }
+
+  generateSudoku() {
+    new BoardComponent(this.boardService, this.http).generateSudoku()
   }
 }
 

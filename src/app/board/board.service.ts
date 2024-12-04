@@ -106,54 +106,33 @@ export class BoardService {
     }
   }
 
-  generateBoardBackTrack() {
-    let digGrid: number[] = DIGITS
-    let hasSol: boolean = true
-    let empCell: number[] = []
-    let lastCell: number[] = []
-    let value = 0
-    do {
-      empCell = this.findEmptyCell()
-      if (empCell.length == 2) {
-        //here we have searching for solution
-        for (let v = 0; v < digGrid.length; v++) {
-          value = digGrid[v]
-          if (this.checkValue(empCell[0], empCell[1], value)) {
-            console.log("Filling cell: " + empCell + "with value " + value)
-            this.sudoku.board[empCell[0]][empCell[1]] = value
-            lastCell = empCell
-            empCell = []
-            hasSol = true
-            break
-          }
-          else continue
+
+
+  solveBoardBackTrack(): boolean {
+    let empty: number[] = this.findEmptyCell()
+    if (empty.length == 0) return true
+    else {
+      console.log(empty)
+      for (let v = 1; v <= 9; v++) {
+        if (this.checkValue(empty[0], empty[1], v)) {
+          this.sudoku.board[empty[0]][empty[1]] = v
+          if (this.solveBoardBackTrack())
+            return true
+          this.sudoku.board[empty[0]][empty[1]] = 0
         }
-        if (empCell.length == 2 && value == 9) hasSol = false;
       }
     }
-    while (hasSol)
-    if (hasSol == false && empCell.length != 0) {
-      console.log("We are backtracking. Clearing cell: ", lastCell)
-      let lastUsed: number = this.sudoku.board[lastCell[0]][lastCell[1]]
-      this.sudoku.board[lastCell[0]][lastCell[1]] = 0
-      digGrid = digGrid.filter((ele, ind) => ele !== lastUsed);
-      // this.generateBoardBackTrack()
-    }
-    else {
-      console.log("This sudoku does not have solution")
-    }
+    return false
   }
 
   findEmptyCell(): number[] {
     for (let m = 0; m < 9; m++)
-      for (let n = 0; n < 9; n++) {
-        if (this.sudoku.board[m][n] === 0) {
-          return [m, n];
+      for (let n = 0; n < 9; n++)
+        if (this.sudoku.board[m][n] == 0) {
+          return [m, n]
         }
-      }
     return []
   }
-
 
   checkValue(row: number, col: number, value: number): boolean {
     if (value >= 1 && value <= 9) {
@@ -226,4 +205,12 @@ function inRange(min: number, max: number, value: number): boolean {
     return true
   else return false
 }
+
+function shuffle(array: number[]): number[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 

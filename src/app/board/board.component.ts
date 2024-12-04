@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BoardService } from './board.service';
 
 const SIZES = [9, 30]
@@ -15,6 +15,7 @@ export class BoardComponent implements OnInit {
   originBoard: number[][] = [];
   selCell: number[] = []
   selDig: number = 0
+  taken: number=0
   csvContent: string = ""
   private path: string = "/assets/game_examples/sudoku_examples.csv"
 
@@ -28,7 +29,7 @@ export class BoardComponent implements OnInit {
       this.sudokuBoard = this.boardService.initializeBoard()
     }
     this.loadCSVFile()
-    if (this.sudokuBoard.length==0) this.startGame()
+    if (this.sudokuBoard.length == 0) this.startGame()
   }
 
   startGame(): void {
@@ -51,7 +52,7 @@ export class BoardComponent implements OnInit {
     this.selDig = value
     if (this.selCell.length != 0) {
       this.boardService.fillValue(this.selDig, this.selCell)
-      this.sudokuBoard=this.boardService.getBoard()
+      this.sudokuBoard = this.boardService.getBoard()
       this.selCell = []
     }
   }
@@ -78,7 +79,7 @@ export class BoardComponent implements OnInit {
 
   }
   getSudokuFromCSV(data: string): void {
-    let sudokuList: string[] = data.split("\n").splice(6)
+    let sudokuList: string[] = data.split("\n").splice(2)
     sudokuList = sudokuList[0].split(",")[0].split("", 81)
     this.sudokuBoard = Array.from({ length: 9 }, (_, rowIndex) => sudokuList.slice(rowIndex * 9, (rowIndex + 1) * 9).map(str => Number(str)));
     this.boardService.uploadBoard(this.sudokuBoard)
@@ -87,7 +88,16 @@ export class BoardComponent implements OnInit {
     // sudokuList[0].split(",")[1].split("", 81)  
   }
 
-  solveSudoku(): void{
-    this.boardService.generateBoardBackTrack()
+  solveSudoku(): void {
+    const startTime = performance.now()
+    if (this.boardService.solveBoardBackTrack()) {
+      console.log("solved")
+    }
+    const endTime = performance.now()
+    this.taken =(endTime - startTime)/1000
+  }
+
+  generateSudoku(): void {
+
   }
 }

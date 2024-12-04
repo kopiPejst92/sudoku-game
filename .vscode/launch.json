@@ -2,7 +2,13 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
-  
+    {
+      "type": "java",
+      "name": "Sudoku",
+      "request": "launch",
+      "mainClass": "Sudoku",
+      "projectName": "sudoku-game_23e050ce"
+    },
     {
       "name": "ng serve",
       "type": "chrome",
